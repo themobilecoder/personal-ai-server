@@ -1,0 +1,27 @@
+services:
+  proxy-server:
+    container_name: proxy-server
+    build:
+      dockerfile: ./proxy-server/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ollama-server
+    networks:
+      - app-network
+
+  ollama-server:
+    image: ollama/ollama
+    container_name: ollama-server
+    hostname: ollama
+    build:
+      dockerfile: ./ollama-server/Dockerfile
+    volumes:
+      - ./ollama-server/entrypoint.sh:/entrypoint.sh
+    networks:
+      - app-network
+    entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
+
+networks:
+  app-network:
+    driver: bridge
