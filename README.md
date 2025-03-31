@@ -1,11 +1,15 @@
 # Personal AI Server
 
-Personal AI API is a project designed to serve an AI server under a proxy. It leverages Docker to expose the endpoint, making it easy to deploy and manage.
+Personal AI API is a project designed to serve an AI server under a proxy.
 
 ## Features
 
 - Ollama server accessible through a proxy.
 - Dockerised setup for streamlined deployment.
+
+## Overview of components
+
+![System Diagram](images/diagram.svg)
 
 ## Prerequisites
 
@@ -26,7 +30,7 @@ Before setting up the project, ensure you have the following installed:
 Build and start the Docker containers:
 
 ```bash
-   docker-compose up
+docker-compose up -d
 ```
 
 ## Usage
@@ -48,7 +52,7 @@ Replace `"Your input prompt here"` with your desired prompt and adjust the optio
 Example using `curl`:
 
 ```bash
-curl -X POST http://localhost:8080/api/generate -H "Content-Type: application/json" -d '{"model":"llama3.2","prompt": "Why is the sky blue? Answer in 1 sentence","options": {"temperature": 0.7}}'
+curl -X POST http://localhost:8080/api/generate -d '{"model":"llama3.2","prompt": "Why is the sky blue? Answer in 1 sentence","options": {"temperature": 0.7}}'
 ```
 
 ## Contributing
@@ -57,10 +61,8 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ## TODO:
 
-- Refactor fastify to use `plugins`
-- Separate files in `proxy-server` project
 - Make the Ollama model a variable instead of defaulting to `llama3.2`
-- Allow to create API keys to secure your own server for being accessed by anyone
+- Allow to create API keys to secure your own server from being accessed by anyone
 
 ## Licence
 
