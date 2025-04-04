@@ -30,7 +30,7 @@ Before setting up the project, ensure you have the following installed:
 Build and start the Docker containers:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Usage

@@ -1,10 +1,9 @@
 services:
-  proxy-server:
-    container_name: proxy-server
+  auth-server:
+    container_name: auth-server
+    hostname: auth
     build:
-      dockerfile: ./proxy-server/Dockerfile
-    ports:
-      - "8080:8080"
+      dockerfile: ./auth-server/Dockerfile
     networks:
       - app-network
 
@@ -19,6 +18,23 @@ services:
     networks:
       - app-network
     entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
+
+  caddy-server:
+    image: caddy:2.9.1
+    container_name: caddy-server
+    restart: unless-stopped
+    hostname: caddy
+    depends_on:
+      - auth-server
+      - ollama-server
+    build:
+      dockerfile: ./caddy-server/Dockerfile
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
 
 networks:
   app-network:

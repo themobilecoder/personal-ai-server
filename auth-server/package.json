@@ -1,7 +1,7 @@
 {
-  "name": "personal-ai-server",
+  "name": "auth-server",
   "version": "1.0.0",
-  "description": "Self contained server for providing AI chat responses using Ollama",
+  "description": "Self contained auth-server authorising and proxying requests to the target server",
   "main": "index.js",
   "author": "themobilecoder",
   "license": "MIT",

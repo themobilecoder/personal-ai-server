@@ -18,7 +18,7 @@ const startServer = async (): Promise<void> => {
       host: PROXY_HOST,
       port: PROXY_PORT,
     });
-    console.log(`Personal AI Server is now running at ${address}`);
+    console.log(`auth-server is now running at ${address}`);
   } catch (err) {
     console.error(err);
     process.exit(1);

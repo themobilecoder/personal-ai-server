@@ -5,10 +5,10 @@ FROM node:20
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY ./proxy-server/package.json ./proxy-server/yarn.lock ./proxy-server/tsconfig.json /app/
+COPY ./auth-server/package.json ./auth-server/yarn.lock ./auth-server/tsconfig.json /app/
 
 # Copy src
-COPY ./proxy-server/src/ /app/src
+COPY ./auth-server/src/ /app/src
 
 # Install dependencies
 RUN yarn install
