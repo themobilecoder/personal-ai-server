@@ -2,7 +2,7 @@
 
 Personal AI Server is a project designed to serve an AI server under a proxy.
 
-This project uses `ollama` as the AI model, accessible behind a proxy that requires an `Authorization` header to access.
+This project uses `ollama` as the AI server, accessible behind a proxy that requires an `Authorization` header to access, but can be replaced with other AI servers that expose endpoints.
 
 ## Features
 
@@ -33,13 +33,15 @@ For example
 aslkdnk-321kn-321nkasd-321
 ```
 
-2.1 (Optional) Generate keys using `openssh`
+3. (Optional) Generate keys using `openssh`
 
 ```
 echo "ak-auth-$(openssl rand -hex 16)"
 ```
 
-3. Run the server by starting the docker containers (ollama, auth-server, caddy) using `docker-compose`
+and use this value as your api key
+
+4. Run the server by starting the docker containers (ollama, auth-server, caddy) using `docker-compose`
 
 ```
 docker compose up -d
@@ -49,11 +51,11 @@ This will use `docker-compose.yml` and run your server behind port `9000` by def
 
 ## Using the server
 
-Since this server just hides the `ollama` server behind an authenticated proxy, the endpoints and requests will be the same as talking to an `ollama` server.
+Since this server hides the `ollama` server behind an authenticated proxy, the endpoints and requests will be the same as talking to an `ollama` server.
 
 The difference is that now it requires a `Authorization` header to prevent others from using your AI server, especially if you are planning to host your server publicly.
 
-An example cURL request for your server would look something like this:
+An example `cURL` request for your server would look something like this:
 
 ```bash
 curl -X POST http://localhost:9000/api/generate -H "Authorization: your-secret-api-key" -d '{"model":"llama3.2","prompt": "Why is the sky blue? Answer in 1 sentence","options": {"temperature": 0.7}}'
@@ -97,7 +99,7 @@ This will use a different configuration where the `caddy` proxy will redirect au
 
 ## Hosting on a computer exposing the server publicly
 
-One of the aim of this project is to have your own AI server to be accessibly publicly.
+One of the aims of this project is to have your own AI server to be accessibly publicly.
 
 ### Using zrok
 

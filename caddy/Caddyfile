@@ -9,7 +9,7 @@
 		copy_headers host
 	}
 
-	# Define a header filter to check presence of X-RAF-HEADER with value `magicvalue`
+	# Define a header filter to check presence of X-Proxy-Status with value `OK`
 	@authorised header X-Proxy-Status OK
 
 	# If the header is present, forward to ollama:11434
