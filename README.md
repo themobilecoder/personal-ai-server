@@ -20,7 +20,7 @@ Before setting up the project, ensure you have the following installed:
 ## Running the server
 
 1. Fork/Copy/Clone this repository
-2. Update `api-keys.txt` and add the keys that you allow to access your endpoint
+2. Update `/api-keys` and add the keys that you allow to access your endpoint
 
 For example
 
@@ -76,7 +76,6 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 ## TODO:
 
 - Make the Ollama model a variable instead of defaulting to `llama3.2`
-- Allow to create API keys to secure your own server from being accessed by anyone
 
 ## Licence
 

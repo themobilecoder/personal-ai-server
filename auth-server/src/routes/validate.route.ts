@@ -1,5 +1,6 @@
 import { type FastifyPluginCallback, type FastifyReply } from "fastify";
 import fp from "fastify-plugin";
+import { readFileSync } from "fs";
 
 const sendUnauthorised = (reply: FastifyReply) => {
     reply.code(401).send("Unauthorized");
@@ -10,9 +11,26 @@ const sendAuthorised = (reply: FastifyReply) => {
     return reply.headers({ "X-Proxy-Status": "OK", "host": "localhost:9000" }).send();
 };
 
-//TODO: Implement API key validation logic
+const loadApiKeys = (): string[] => {
+    try {
+        const data = readFileSync("/etc/api-keys", "utf-8");
+        return data
+            .split("\n")
+            .filter((line) => line.trim() !== "" && !line.trim().startsWith("#"));
+    } catch (err) {
+        console.error("Error reading API keys file:", err);
+        return [];
+    }
+};
+
+const API_KEYS = loadApiKeys();
+
 const isValidApiKey = (apiKey: string): boolean => {
-    return '123456' === apiKey;
+    if (API_KEYS.length === 0) {
+        console.warn("No API keys found. All requests will be denied.");
+        return false;
+    }
+    return API_KEYS.includes(apiKey);
 };
 
 const route: FastifyPluginCallback = async (server) => {

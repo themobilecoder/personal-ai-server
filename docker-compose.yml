@@ -2,6 +2,8 @@ services:
   auth-server:
     container_name: auth-server
     hostname: auth
+    volumes:
+      - ./api-keys:/etc/api-keys
     build:
       dockerfile: ./auth-server/Dockerfile
     networks:
