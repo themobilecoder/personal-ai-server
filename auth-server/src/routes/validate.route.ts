@@ -36,7 +36,6 @@ const isValidApiKey = (apiKey: string): boolean => {
 const route: FastifyPluginCallback = async (server) => {
     server.all("/validate", async (request, reply) => {
         try {
-            console.log(request.headers);
             const apiKey = request.headers["authorization"];
             if (!apiKey) {
                 return sendUnauthorised(reply);
