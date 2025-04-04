@@ -1,3 +1,1 @@
-# Replace this with your actual API keys
-ak-auth-sample-key-1
-ak-auth-sample-key-2
+# Add allowed API Keys below (see `api-keys.example`)
