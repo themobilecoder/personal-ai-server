@@ -9,18 +9,6 @@ services:
     networks:
       - app-network
 
-  ollama-server:
-    image: ollama/ollama
-    container_name: ollama-server
-    hostname: ollama
-    build:
-      dockerfile: ./ollama-server/Dockerfile
-    volumes:
-      - ./ollama-server/entrypoint.sh:/entrypoint.sh
-    networks:
-      - app-network
-    entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
-
   caddy-server:
     image: caddy:2.9.1
     container_name: caddy-server
@@ -28,7 +16,6 @@ services:
     hostname: caddy
     depends_on:
       - auth-server
-      - ollama-server
     build:
       dockerfile: ./caddy-server/Dockerfile
     ports:
@@ -36,7 +23,9 @@ services:
     networks:
       - app-network
     volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/macnative/Caddyfile:/etc/caddy/Caddyfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 networks:
   app-network:

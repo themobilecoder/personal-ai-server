@@ -1,0 +1,17 @@
+# Caddyfile for forwarding requests to auth-server and
+# authorised requests to ollama
+
+:9000 {
+	# Forward all requests to localhost:8080/validate
+	forward_auth * auth:8080 {
+		uri /validate
+		copy_headers X-Proxy-Status
+		copy_headers host
+	}
+
+	# Define a header filter to check presence of X-RAF-HEADER with value `magicvalue`
+	@authorised header X-Proxy-Status OK
+
+	# If the header is present, forward to docker host's localhost:11434
+	reverse_proxy @authorised host.docker.internal:11434
+}
