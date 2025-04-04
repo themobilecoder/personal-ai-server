@@ -9,6 +9,10 @@ This project uses `ollama` as the AI model, accessible behind a proxy that requi
 - Ollama server accessible through a proxy
 - Dockerised setup for simple deployment
 
+## Block diagram
+
+![Server Diagram](images/server-diagram.svg)
+
 ## Prerequisites
 
 Before setting up the project, ensure you have the following installed:
